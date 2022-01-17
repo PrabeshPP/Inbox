@@ -1,39 +1,34 @@
 let path=require('path');
 let fs=require('fs');
-const newLocal = 'solc';
-let solc=require(newLocal)
-
+var solc=require('solc');
 let inboxPath=path.resolve(__dirname,'contracts','Inbox.sol');
 let source=fs.readFileSync(inboxPath,'utf-8');
 
 
 var input={
-    lanaguage:'Solidity',
+    language: 'Solidity',
     sources:{
-        source:{
-            content:'import "lib.sol"; contract C { function f() public { L.f(); } }'
+       'Inbox.sol' : {
+            content: source
         }
     },
     settings:{
         outputSelection: {
-            '*': {
-              '*': ['*']
+            '*' :{
+                '*' :['*']
             }
-          }
+        }
     }
 };
 
-function findImports(path) {
-    if (path === 'lib.sol')
-      return {
-        contents:
-          'library L { function f() internal returns (uint) { return 7; } }'
-      };
-    else return { error: 'File not found' };
-  }
+var output=JSON.parse(solc.compile(JSON.stringify(input)));
 
-  var output = JSON.parse(
-    solc.compile(JSON.stringify(input), { import: findImports })
-  );
+console.log(output.contracts['Inbox.sol']);
 
-  console.log(output);
+// for (var contractName in output.contracts['Inbox.sol']) {
+//     console.log(
+//       contractName +
+//         ': ' +
+//         output.contracts['Inbox.sol'][contractName].evm.bytecode.object
+//     );
+//   }
