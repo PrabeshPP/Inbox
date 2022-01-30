@@ -2,6 +2,8 @@ const HDWalletProvider=require("@truffle/hdwallet-provider");
 const Web3=require('web3');
 const{abi,evm}=require('./compile');
 const bytecode=evm.bytecode.object;
+let accounts;
+let inbox;
 
 /* in the HDWalletProvide we have pass two seprate arguments first-one our ac. pneumonic,
  and the second one should be the link provide by the Infura
@@ -15,3 +17,11 @@ const provider=new HDWalletProvider({
 // web3
 
 const web3=new Web3(provider);
+
+//async-await function
+
+const deploy=async()=>{
+    accounts=await web3.eth.accounts;
+    
+    
+}
