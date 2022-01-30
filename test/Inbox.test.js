@@ -21,7 +21,6 @@ beforeEach(async()=>{
     .deploy({data:bytecode,arguments:["Hi there!"]})
     .send({from:accounts[0],gas:'1000000'})
 
-    console.log(inbox);
 
 
 })
@@ -29,7 +28,8 @@ beforeEach(async()=>{
 
 describe("Inbox",()=>{
     it("deploys a contract",()=>{
-        // console.log(inbox);
+        console.log(inbox);
+        
 
 
     })
