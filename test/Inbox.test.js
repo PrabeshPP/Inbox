@@ -6,8 +6,8 @@ const Web3=require('web3');
 const {abi,evm}=require("../compile");
 let bytecode=evm.bytecode.object
 
-
-let web3=new Web3(ganache.provider());
+let provider=ganache.provider()
+let web3=new Web3(provider);
 let accounts;
 let inbox;
 
@@ -18,8 +18,10 @@ beforeEach(async()=>{
     // Use one of them to deploy
     // Contracts
     inbox=await new web3.eth.Contract(abi)
-    .deploy({data:bytecode,arguments:["Hi there!"]})
+    .deploy({data:bytecode,arguments:["Hii there!"]})
     .send({from:accounts[0],gas:'1000000'})
+
+    inbox.setProvider(provider);
 
 
 
@@ -28,10 +30,12 @@ beforeEach(async()=>{
 
 describe("Inbox",()=>{
     it("deploys a contract",()=>{
-        console.log(inbox);
-        
+        assert.ok(inbox.options.address);
+    })
 
-
+    it("shoudl return the default message",async()=>{
+        const message=await inbox.methods.message().call();
+        assert.equal(message,"Hi there!");
     })
 
 })
