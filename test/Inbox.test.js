@@ -1,3 +1,4 @@
+const { equal } = require('assert');
 const assert=require('assert');
 const { verify } = require('crypto');
 const ganache=require('ganache-cli');
@@ -18,7 +19,7 @@ beforeEach(async()=>{
     // Use one of them to deploy
     // Contracts
     inbox=await new web3.eth.Contract(abi)
-    .deploy({data:bytecode,arguments:["Hii there!"]})
+    .deploy({data:bytecode,arguments:["Hi there!"]})
     .send({from:accounts[0],gas:'1000000'})
 
     inbox.setProvider(provider);
@@ -36,6 +37,13 @@ describe("Inbox",()=>{
     it("shoudl return the default message",async()=>{
         const message=await inbox.methods.message().call();
         assert.equal(message,"Hi there!");
+    })
+    it('should update the message variable when called ',async()=>{
+   await inbox.methods.setMessage("Hi").send({from:accounts[0]});
+    const message=await inbox.methods.message().call();
+
+    assert.equal(message,'Hi');
+        
     })
 
 })
