@@ -8,5 +8,6 @@ const bytecode=evm.bytecode.object;
 */
 
 const provider=new HDWalletProvider(
-    "deploying the contract"
+    "cancel evil glimpse lock riot capable crumble cliff ordinary leaf float taxi",
+    "https://rinkeby.infura.io/v3/bd79d348176343c596b09fb772c7aa0c" 
 )
