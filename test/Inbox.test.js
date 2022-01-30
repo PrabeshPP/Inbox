@@ -3,7 +3,76 @@ const { verify } = require('crypto');
 const ganache=require('ganache-cli');
 const Web3=require('web3');
 
+const{interface,bytecode}=require("../compile");
+
 let web3=new Web3(ganache.provider());
+let accounts;
+let inbox;
+
+beforeEach(async()=>{
+    // Get a list of all accounts
+     accounts=await web3.eth.getAccounts();
+
+    // Use one of them to deploy
+    // Contracts
+    inbox=await new web3.eth.Contract(JSON.parse(interface))
+    .deploy({data:bytecode,arguments:["Hi there!"]})
+    .send({from:accounts[0],gas:'1000000'})
+
+    console.log(inbox);
+
+
+})
+
+
+describe("Inbox",()=>{
+    it("deploys a contract",()=>{
+        // console.log(inbox);
+
+
+    })
+
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 //Mocha test
 
@@ -12,28 +81,28 @@ let web3=new Web3(ganache.provider());
 // beforeEach function -> Exxecute some general setup code.
 
 
-class Car{
-    park(){
-        return "Parked";
-    }
+// class Car{
+//     park(){
+//         return "Parked";
+//     }
 
-    drive(){
-        return 'vroom';
-    }
-}
-let car;
-beforeEach(()=>{
- car=new Car();
-})
+//     drive(){
+//         return 'vroom';
+//     }
+// }
+// let car;
+// beforeEach(()=>{
+//  car=new Car();
+// })
 
-describe('Car',()=>{
-    it("shoud Park the car",()=>{
-        assert.equal(car.park(),'Parked');
+// describe('Car',()=>{
+//     it("shoud Park the car",()=>{
+//         assert.equal(car.park(),'Parked');
         
-    })
+//     })
 
-    it("Should produce the sound",()=>{
-        assert.equal(car.drive(),"vroom");
-    })
-})
+//     it("Should produce the sound",()=>{
+//         assert.equal(car.drive(),"vroom");
+//     })
+// })
 
