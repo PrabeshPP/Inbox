@@ -21,6 +21,7 @@ var input={
     }
 };
 
+
 var output=JSON.parse(solc.compile(JSON.stringify(input)));
 // let {abi,bytecode}=output.contracts["Inbox.sol"].Inbox.evm;
 // console.log(output.contracts["Inbox.sol"]["Inbox"]);

@@ -4,8 +4,8 @@ const ganache=require('ganache-cli');
 const Web3=require('web3');
 
 const {abi,evm}=require("../compile");
-console.log(abi);
-console.log(evm);
+let bytecode=evm.bytecode.object
+
 
 let web3=new Web3(ganache.provider());
 let accounts;
@@ -17,11 +17,11 @@ beforeEach(async()=>{
 
     // Use one of them to deploy
     // Contracts
-    // inbox=await new web3.eth.Contract(JSON.parse(interface))
-    // .deploy({data:bytecode,arguments:["Hi there!"]})
-    // .send({from:accounts[0],gas:'1000000'})
+    inbox=await new web3.eth.Contract(abi)
+    .deploy({data:bytecode,arguments:["Hi there!"]})
+    .send({from:accounts[0],gas:'1000000'})
 
-    // console.log(inbox);
+    console.log(inbox);
 
 
 })
