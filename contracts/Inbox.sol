@@ -13,3 +13,4 @@ contract Inbox{
         message=newMessage;
     }
 }
+
