@@ -27,7 +27,7 @@ const deploy=async()=>{
     .deploy({data:bytecode,arguments:["Hi there!"]})
     .send({from:accounts[0],gas:'1000000'});
 
-    console.log("Conteact deployed to ",result.options.address);
+    console.log("Contract deployed to ",result.options.address);
    
     
     
